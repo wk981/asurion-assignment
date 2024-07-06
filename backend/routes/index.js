@@ -1,23 +1,27 @@
 var express = require('express')
 var router = express.Router()
-var openAIService = require('../service/openAIService');
-/* GET home page. */
+var openAIService = require('../service/openAIService')
+
 router.post('/', async (req, res, next) => {
     try {
-        const {message} = req.body;
-        const clientIp = req.ip;
-        if(!message){
-          res.status(500).json({
-            message: "Missing message in the request body"
-          });
+        const { message } = req.body
+        const ipAddress = req.ip
+        if (!message) {
+            return res
+                .status(400)
+                .json({ message: 'Missing message in the request body' })
         }
-        const botMessage = await openAIService.openaiSendMessage(message, clientIp);
-        res.status(200).json({
-          message: botMessage
-        })
+        // Set headers for SSE
+        res.setHeader('Cache-Control', 'no-cache')
+        res.setHeader('Content-Type', 'text/event-stream')
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        res.setHeader('Connection', 'keep-alive')
+        res.flushHeaders() // Flush headers to establish SSE with client
+        await openAIService.sendMessage(message, ipAddress, res)
+        res.end()
     } catch (e) {
-        console.log(e);
-        res.status(500).json(e)
+        console.error(e)
+        res.status(500).json({ error: e.message })
     }
 })
 
