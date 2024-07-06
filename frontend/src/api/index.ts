@@ -2,7 +2,7 @@ export const postChatBotGenerateStream = async (
 	message: string
 ): Promise<AsyncIterable<string>> => {
 	// Todo: Change url to deployment url
-	const URL = import.meta.env.VITE_BACKEND_URL + "chatbot/sse";
+	const URL = import.meta.env.VITE_BACKEND_URL;
 	const response = await fetch(URL, {
 		method: "POST",
 		body: JSON.stringify({
@@ -26,9 +26,6 @@ export const postChatBotGenerateStream = async (
 	}
 	if (!response.body) throw new Error("Response body does not exist");
 	return getIterableStream(response.body);
-
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/
-
 };
 
 // The star in async function* is asynchronous generator function. Streaming continous receiving message from server, dats why while true is used here
@@ -44,6 +41,7 @@ async function* getIterableStream(
 			break;
 		}
 		const decodedChunk = decoder.decode(value, { stream: true });
+		console.log(decodedChunk.split("data:"));
 		yield decodedChunk;
 	}
 }

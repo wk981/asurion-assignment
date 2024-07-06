@@ -3,12 +3,17 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+var cors = require('cors')
 
 var indexRouter = require('./routes/index')
 
 var app = express()
 const port = 3000
 
+const corsOption = {
+  origin: "*"
+}
+app.use(cors(corsOption))
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

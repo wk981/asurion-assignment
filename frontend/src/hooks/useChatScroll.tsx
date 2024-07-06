@@ -40,7 +40,6 @@ export const useChatScroll = ({
             const { scrollHeight, scrollTop, clientHeight } =
                 scrollBarContainerRef.current
             // Formula whether user is bottom of the scrollbar div
-            console.log(scrollHeight, scrollTop, clientHeight)
             setIsBottom(
                 Math.round(scrollHeight - scrollTop - 40.66) <= clientHeight
             )

@@ -3,12 +3,11 @@ import { MessageProps } from '../types'
 import { postChatBotGenerateStream } from '../api'
 import ChatbotIcon from '@/assets/ChatbotIcon.jpg'
 import UserProfile from '@/assets/userProfile.png'
-import { mockMessages } from '../data'
-
+// import { mockMessages } from '../data'
 
 export const useChatBotHook = () => {
     // Array of messages
-    const [messages, setMessages] = useState<MessageProps[]>(mockMessages)
+    const [messages, setMessages] = useState<MessageProps[]>([])
 
     // Streaming Message State
     const [streamMessage, setStreamMessage] = useState<MessageProps>({

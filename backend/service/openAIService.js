@@ -1,5 +1,7 @@
 const OpenAI = require('openai')
 const { logger } = require('./loggingService')
+const utils = require('../utils/utils')
+const { questionData } = require('../utils/questions')
 require('dotenv').config()
 
 const openai = new OpenAI()
@@ -33,13 +35,15 @@ const addToConversation = (role, message, ipAddress) => {
 }
 
 const newConversation = () => {
-    return [
+    const res = [
         {
             role: 'system',
             content:
                 "You will follow the conversation and respond to the queries asked by the 'user's content. You will act as the assistant",
         },
     ]
+    const prompts = utils.generatePrompt(questionData);
+    return(res.concat(prompts))
 }
 
 const sendMessage = async (message, ipAddress, res) => {
@@ -56,7 +60,7 @@ const sendMessage = async (message, ipAddress, res) => {
     let combinedChunks = ''
     for await (const chunk of stream) {
         const content = chunk.choices[0]?.delta?.content || ''
-        res.write(`data: ${content}\n\n`) // Send data as SSE message
+        res.write(`${content}`) // Send data as SSE message
         combinedChunks += content
     }
     addToConversation('assistant', combinedChunks, ipAddress)
@@ -66,5 +70,5 @@ const sendMessage = async (message, ipAddress, res) => {
 }
 
 module.exports = {
-    sendMessage
+    sendMessage,
 }
