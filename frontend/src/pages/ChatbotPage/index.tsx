@@ -23,7 +23,7 @@ export const ChatBotPage = () => {
     } = useChatScroll({ messages, streamMessage });
 
     return (
-        <div className="relative h-screen max-h-full py-2">
+        <div className="relative h-dvh max-h-full py-2">
             <div className="flex flex-col h-full w-full justify-center items-center">
                 <div
                     className="flex-grow w-full flex justify-center items-center overflow-y-auto sm:px-1 px-0"
