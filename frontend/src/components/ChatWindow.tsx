@@ -18,7 +18,7 @@ export const ChatWindow = ({
     handleScroll,
     isStreamingLoading,
 }: ChatWindowProps) => {
-    const { faq } = useFAQHook()
+    const { faq, isLoading } = useFAQHook()
 
     return (
         <div className="w-full h-full">
@@ -43,7 +43,7 @@ export const ChatWindow = ({
                             message={streamMessage.message}
                         />
                     )}
-                    
+
                     <div
                         className={`flex flex-col transition-opacity ease-in-out duration-300 min-w-[300px] w-3/4 sm:w-[24rem] gap-1 mt-2 sm:ml-[5%] ml-[4%] ${
                             isStreamingLoading !== false
@@ -51,9 +51,19 @@ export const ChatWindow = ({
                                 : 'opacity-100'
                         }`}
                     >
-                        {faq.map((item, index) => (
-                            <FAQButton question={item} key={index} />
-                        ))}
+                        {/* {isLoading && <FAQButton question={"Please wait. We are fetching FAQ from the server"} disabled={true} />} */}
+                        {isLoading === true ? (
+                            <FAQButton
+                                question={
+                                    'Please wait. We are fetching FAQ from the server'
+                                }
+                                disabled={true}
+                            />
+                        ) : (
+                            faq.map((item, index) => (
+                                <FAQButton question={item} key={index} />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

@@ -2,10 +2,11 @@ import { useChatBotHook } from '../hooks/useChatBotHook'
 import { Button } from './ui/button'
 
 interface FAQButtonProps {
-    question: string
+    question: string;
+    disabled?: boolean;
 }
 
-export const FAQButton = ({ question }: FAQButtonProps) => {
+export const FAQButton = ({ question,disabled }: FAQButtonProps) => {
     const { handleSearch } = useChatBotHook()
 
     const handleClick = async () => {
@@ -19,6 +20,7 @@ export const FAQButton = ({ question }: FAQButtonProps) => {
             variant="secondary"
             size="sm"
             onClick={handleClick}
+            disabled={disabled}
         >
             {question}
         </Button>
