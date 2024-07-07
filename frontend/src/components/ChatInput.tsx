@@ -24,14 +24,15 @@ export const ChatInput = ({
                     {autocompleteValue}
                 </div>
                 <Input
-                    className="rounded-2xl "
+                    className="rounded-2xl bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80"
                     placeholder={'Ask your questions!'}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyUp={handleKeyUp}
+                    
                 />
             </div>
-            <Button onClick={() => handleSearch(inputValue)}>Send</Button>
+            <Button variant="teal" onClick={() => handleSearch(inputValue)}>Send</Button>
         </div>
     )
 }

@@ -43,14 +43,16 @@ export const ChatWindow = ({
                             message={streamMessage.message}
                         />
                     )}
-                    <div className="flex flex-col min-w-[300px] w-3/4 sm:w-[24rem] gap-1 mt-2 ml-12">
-                        {isStreamingLoading === false &&
-                            faq.map((item, index) => (
-                                <FAQButton
-                                    question={item}
-                                    key={index}
-                                />
-                            ))}
+                    <div
+                        className={`flex flex-col transition-opacity ease-in-out duration-300 min-w-[300px] w-3/4 sm:w-[24rem] gap-1 mt-2 sm:ml-[5%] ml-[4%] ${
+                            isStreamingLoading !== false
+                                ? 'opacity-0 pointer-events-none'
+                                : 'opacity-100'
+                        }`}
+                    >
+                        {faq.map((item, index) => (
+                            <FAQButton question={item} key={index} />
+                        ))}
                     </div>
                 </div>
             </div>
