@@ -21,6 +21,7 @@ const FAQProvider = ({children}:ProviderProps) =>{
                 const response = await getFAQ()
                 const FAQmessages = await response.json()
                 setFaq(FAQmessages)
+                setIsLoading(false);
             } catch (e) {
                 console.log(e);
                 setIsLoading(false);
