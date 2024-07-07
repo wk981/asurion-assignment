@@ -18,7 +18,7 @@ export const ChatWindow = ({
     handleScroll,
     isStreamingLoading,
 }: ChatWindowProps) => {
-    const { faq, isLoading } = useFAQHook()
+    const { faq, isLoading } = useFAQHook();
 
     return (
         <div className="w-full h-full">
