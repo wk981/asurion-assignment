@@ -15,7 +15,7 @@ export const FAQButton = ({ question }: FAQButtonProps) => {
 
     return (
         <Button
-            className="text-[0.7rem] h-10 sm:h-8 py-2 whitespace-normal"
+            className="text-[0.7rem] h-10 sm:h-8 py-2 whitespace-normal bg-white"
             variant="secondary"
             size="sm"
             onClick={handleClick}

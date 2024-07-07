@@ -43,10 +43,11 @@ export const ChatWindow = ({
                             message={streamMessage.message}
                         />
                     )}
+                    
                     <div
                         className={`flex flex-col transition-opacity ease-in-out duration-300 min-w-[300px] w-3/4 sm:w-[24rem] gap-1 mt-2 sm:ml-[5%] ml-[4%] ${
                             isStreamingLoading !== false
-                                ? 'opacity-0 pointer-events-none'
+                                ? 'opacity-0 pointer-events-none h-0'
                                 : 'opacity-100'
                         }`}
                     >

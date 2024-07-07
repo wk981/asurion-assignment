@@ -23,8 +23,8 @@ export const ChatBotPage = () => {
     } = useChatScroll({ messages, streamMessage });
 
     return (
-        <div className="relative h-screen">
-            <div className="flex flex-col h-full gap-9 w-full justify-center items-center py-6">
+        <div className="relative min-h-screen h-screen py-2">
+            <div className="flex flex-col h-full gap-9 w-full justify-center items-center">
                 <div
                     className="flex-grow w-full flex justify-center items-center overflow-y-auto sm:px-1 px-0"
 					ref={scrollBarContainerRef} onScroll={handleScroll}

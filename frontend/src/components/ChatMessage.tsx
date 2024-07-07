@@ -1,8 +1,9 @@
 import { MessageProps } from '../types'
+import ReactMarkdown from 'react-markdown'
 
 export const ChatMessage = ({ profilePic, message }: MessageProps) => {
     return (
-        <div className='flex gap-2 mt-4'>
+        <div className="flex gap-2 mt-4">
             {/* Profile */}
             <div className="rounded-full border w-10 h-10 flex items-center justify-center bg-secondary shadow-sm">
                 {profilePic && (
@@ -14,7 +15,7 @@ export const ChatMessage = ({ profilePic, message }: MessageProps) => {
             </div>
             {/* Message */}
             <div className="px-1 flex-1 min-w-11/12 text-left w-full">
-                {message}
+                <ReactMarkdown>{message}</ReactMarkdown>
             </div>
         </div>
     )
