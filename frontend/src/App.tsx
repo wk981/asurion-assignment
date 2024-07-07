@@ -1,9 +1,15 @@
+import { ChatBotProvider } from './contexts/ChatBotProvider'
+import { FAQProvider } from './contexts/FAQProvider'
 import { ChatBotPage } from './pages/ChatbotPage'
 
 function App() {
 
   return (
-    <ChatBotPage />
+    <ChatBotProvider>
+      <FAQProvider>
+        <ChatBotPage />
+      </FAQProvider>
+    </ChatBotProvider>
   )
 }
 

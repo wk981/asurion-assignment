@@ -36,7 +36,6 @@ export const ChatBotPage = () => {
                             messageContainerRef={messageContainerRef}
                             handleScroll={handleScroll}
                             isStreamingLoading = {isStreamingLoading}
-                            handleSearch={handleSearch}
                         />
 
                 </div>
@@ -44,7 +43,7 @@ export const ChatBotPage = () => {
                         inputValue={inputValue}
                         setInputValue={setInputValue}
                         handleSearch={handleSearch}
-                    />
+                />
             </div>
         </div>
     )

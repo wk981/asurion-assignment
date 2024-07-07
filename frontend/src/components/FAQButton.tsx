@@ -1,13 +1,15 @@
+import { useChatBotHook } from '../hooks/useChatBotHook'
 import { Button } from './ui/button'
 
 interface FAQButtonProps {
     question: string
-    handleSearch: (value: string) => Promise<void>
 }
 
-export const FAQButton = ({ question, handleSearch }: FAQButtonProps) => {
+export const FAQButton = ({ question }: FAQButtonProps) => {
+    const { handleSearch } = useChatBotHook()
+
     const handleClick = async () => {
-        console.log("Clicked")
+        console.log('Clicked')
         await handleSearch(question)
     }
 

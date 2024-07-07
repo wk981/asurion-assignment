@@ -9,7 +9,6 @@ interface ChatWindowProps {
     messageContainerRef: React.MutableRefObject<HTMLDivElement | null>
     handleScroll: any
     isStreamingLoading: boolean
-    handleSearch: (value: string) => Promise<void>
 }
 
 export const ChatWindow = ({
@@ -18,7 +17,6 @@ export const ChatWindow = ({
     messageContainerRef,
     handleScroll,
     isStreamingLoading,
-    handleSearch,
 }: ChatWindowProps) => {
     const { faq } = useFAQHook()
 
@@ -50,7 +48,6 @@ export const ChatWindow = ({
                             faq.map((item, index) => (
                                 <FAQButton
                                     question={item}
-                                    handleSearch={handleSearch}
                                     key={index}
                                 />
                             ))}
