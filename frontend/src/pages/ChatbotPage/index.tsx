@@ -11,7 +11,8 @@ export const ChatBotPage = () => {
         inputValue,
         setInputValue,
         handleSearch,
-    } = useChatBotHook()
+        isLoading: isStreamingLoading
+    } = useChatBotHook();
 
     const {
         messageContainerRef,
@@ -19,13 +20,13 @@ export const ChatBotPage = () => {
         handleClickScrollIntoView,
 		isBottom,
         handleScroll
-    } = useChatScroll({ messages, streamMessage })
+    } = useChatScroll({ messages, streamMessage });
 
     return (
         <div className="relative h-screen">
-            <div className="flex flex-col gap-9 w-full h-full justify-center items-center py-6">
+            <div className="flex flex-col h-full gap-9 w-full justify-center items-center py-6">
                 <div
-                    className="flex-grow w-full h-full flex justify-center items-center overflow-y-auto sm:px-1 px-0"
+                    className="flex-grow w-full flex justify-center items-center overflow-y-auto sm:px-1 px-0"
 					ref={scrollBarContainerRef} onScroll={handleScroll}
                 >
 						<ScrollIntoViewButton handleClickScrollIntoView={handleClickScrollIntoView} isBottom={isBottom} />
@@ -34,6 +35,8 @@ export const ChatBotPage = () => {
                             streamMessage={streamMessage}
                             messageContainerRef={messageContainerRef}
                             handleScroll={handleScroll}
+                            isStreamingLoading = {isStreamingLoading}
+                            handleSearch={handleSearch}
                         />
 
                 </div>

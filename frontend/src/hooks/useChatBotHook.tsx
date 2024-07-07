@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { MessageProps } from '../types'
 import { postChatBotGenerateStream } from '../api'
-import ChatbotIcon from '@/assets/ChatbotIcon.jpg'
+import ChatbotIcon from '@/assets/ChatbotIcon.png'
 import UserProfile from '@/assets/userProfile.png'
 // import { mockMessages } from '../data'
 
@@ -12,15 +12,19 @@ export const useChatBotHook = () => {
     // Streaming Message State
     const [streamMessage, setStreamMessage] = useState<MessageProps>({
         profilePic: ChatbotIcon,
-        message: '',
+        message: 'Hello sir, what do you want to know about DeviceCare?',
     })
 
+    // loading State
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     // State for input
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useState('');
 
     const handleApiCall = async (message: string) => {
         try {
-            const stream = await postChatBotGenerateStream(message)
+            setIsLoading(true);
+            const stream = await postChatBotGenerateStream(message);
             let intermediateMessage = ''
 
             for await (const chunk of stream) {
@@ -45,18 +49,20 @@ export const useChatBotHook = () => {
             setStreamMessage((prevState) => ({
                 ...prevState,
                 message: '',
-            }))
+            }));
+            setIsLoading(false);
         } catch (err) {
             /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
             const error = err as { message: string }
             const errorMessageObject = JSON.parse(error.message)
-            console.log(errorMessageObject)
+            console.log(errorMessageObject);
+            setIsLoading(false);
             /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
         }
     }
 
     const handleSearch = async (value: string) => {
-        if (inputValue !== '') {
+        if (inputValue !== '' || value !== '') {
             // Temp to store so that input can be cleared
             const temp = value
 
@@ -83,5 +89,6 @@ export const useChatBotHook = () => {
         inputValue,
         setInputValue,
         handleSearch,
+        isLoading
     }
 }

@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var openAIService = require('../service/openAIService')
+const questionService = require('../service/questionService')
 
 router.post('/', async (req, res, next) => {
     try {
@@ -22,6 +23,15 @@ router.post('/', async (req, res, next) => {
     } catch (e) {
         console.error(e)
         res.status(500).json({ error: e.message })
+    }
+})
+
+router.get('/FAQ', (req,res) =>{
+    try {
+        res.status(200).json(questionService.getFAQ());
+    } catch (e) {
+        console.error(e)
+        res.status(500).json({ error: e.message });
     }
 })
 

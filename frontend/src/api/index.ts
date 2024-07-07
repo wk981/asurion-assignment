@@ -1,8 +1,33 @@
+const URL = import.meta.env.VITE_BACKEND_URL;
+
+const generateThrowError = (errorStatus: number, errorMessage:any) =>{
+	return 	JSON.stringify({
+		status: errorStatus.toString(),
+		message: JSON.parse(errorMessage),
+	});
+}
+
+export const getFAQ = async () => {
+	const response = await fetch(URL + "FAQ",{
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": "*",
+		},
+	});
+	if (response.status !== 200){
+		const error = generateThrowError(500,"Something went wrong in the server");
+		throw new Error(error);
+	}
+	else{
+		return response;
+	}
+}
+
 export const postChatBotGenerateStream = async (
 	message: string
 ): Promise<AsyncIterable<string>> => {
 	// Todo: Change url to deployment url
-	const URL = import.meta.env.VITE_BACKEND_URL;
 	const response = await fetch(URL, {
 		method: "POST",
 		body: JSON.stringify({
@@ -17,12 +42,8 @@ export const postChatBotGenerateStream = async (
 		const errorMessage = await response.text();
 		/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/
 		// Error is only any type so I have disable eslint for error
-		throw new Error(
-			JSON.stringify({
-				status: response.status.toString(),
-				message: JSON.parse(errorMessage).message,
-			})
-		);
+		const error = generateThrowError(response.status,errorMessage);
+		throw new Error(error);
 	}
 	if (!response.body) throw new Error("Response body does not exist");
 	return getIterableStream(response.body);
